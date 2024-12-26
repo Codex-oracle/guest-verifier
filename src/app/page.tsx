@@ -105,12 +105,12 @@ export default function VerifyGuest() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredGuests.map((guest, index) => (
                   <tr key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap">{guest.Name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{guest['Email/Phone Number']}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{guest.Status}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{guest.Guest}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{guest.Verified}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Name}</td>
+                    <td className="px-6 py-4 text-black whitespace-nowrap">{guest['Email/Phone Number']}</td>
+                    <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Status}</td>
+                    <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Guest}</td>
+                    <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Verified}</td>
+                    <td className="px-6 py-4 text-black whitespace-nowrap">
                       {guest.Verified === 'No' && (
                         <button
                           onClick={() => handleVerify(guest.Name)}
