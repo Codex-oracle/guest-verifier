@@ -154,7 +154,14 @@ export default function VerifyGuest() {
                     <td className="px-6 py-4 text-black whitespace-nowrap">{guest['Email/Phone Number']}</td>
                     <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Status}</td>
                     <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Guest}</td>
-                    <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Verified}</td>
+                    <td className="px-6 py-4 text-black whitespace-nowrap">
+                      <input
+                        type="checkbox"
+                        disabled
+                        checked={guest.Verified === 'Yes'}
+                        className="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500 disabled:opacity-100"
+                      />
+                    </td>
                     <td className="px-6 py-4 text-black whitespace-nowrap">
                       {guest.Verified === 'No' && (
                         <button

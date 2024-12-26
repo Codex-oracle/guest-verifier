@@ -1,21 +1,22 @@
 import { NextResponse } from 'next/server'
-import { promises as fs } from 'fs'
-import path from 'path'
-import { parse } from 'csv-parse/sync'
+import { getSheet } from '@/lib/googleSheets'
 
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), 'Updated_guestlist.csv')
-    const fileContent = await fs.readFile(filePath, 'utf-8')
+    const sheet = await getSheet();
+    const rows = await sheet.getRows();
     
-    const records = parse(fileContent, {
-      columns: true,
-      skip_empty_lines: true
-    })
+    const guests = rows.map(row => ({
+      Name: row.get('Name'),
+      'Email/Phone Number': row.get('Email/Phone Number'),
+      Status: row.get('Status'),
+      Guest: row.get('Guest'),
+      Verified: row.get('Verified') || 'No'
+    }));
 
-    return NextResponse.json(records)
+    return NextResponse.json(guests);
   } catch (error) {
-    console.error('Error reading guest list:', error)
-    return NextResponse.json({ error: 'Failed to fetch guest list' }, { status: 500 })
+    console.error('Error fetching guests:', error);
+    return NextResponse.json({ error: 'Failed to fetch guests' }, { status: 500 });
   }
 } 

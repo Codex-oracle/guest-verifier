@@ -18,6 +18,12 @@ export default function VerifyGuest() {
   const [showScanner, setShowScanner] = useState(false)
   const [result, setResult] = useState<{found: boolean, details?: Guest} | null>(null)
 
+  const stats = {
+    totalGuests: guests.length,
+    verified: guests.filter(guest => guest.Verified === 'Yes').length,
+    remaining: guests.filter(guest => guest.Verified === 'No').length
+  }
+
   useEffect(() => {
     const fetchGuests = async () => {
       const response = await fetch('/api/get-guests')
@@ -105,8 +111,24 @@ export default function VerifyGuest() {
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h1 className="text-2xl font-bold text-center mb-8">Guest Verification</h1>
+
+      <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+        <h1 className="text-2xl font-bold text-black text-center mb-8">Guest Verification Checker</h1>
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h3 className="text-lg font-medium text-gray-900">Total Guests</h3>
+              <p className="mt-2 text-3xl font-bold text-indigo-600">{stats.totalGuests}</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h3 className="text-lg font-medium text-gray-900">Verified</h3>
+              <p className="mt-2 text-3xl font-bold text-green-600">{stats.verified}</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h3 className="text-lg font-medium text-gray-900">Remaining</h3>
+              <p className="mt-2 text-3xl font-bold text-orange-600">{stats.remaining}</p>
+            </div>
+          </div>
           
           {/* Search and Scan Controls */}
           <div className="mb-6 space-y-4">
@@ -154,7 +176,14 @@ export default function VerifyGuest() {
                     <td className="px-6 py-4 text-black whitespace-nowrap">{guest['Email/Phone Number']}</td>
                     <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Status}</td>
                     <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Guest}</td>
-                    <td className="px-6 py-4 text-black whitespace-nowrap">{guest.Verified}</td>
+                    <td className="px-6 py-4 text-black whitespace-nowrap text-lg">
+                      <input
+                        type="checkbox"
+                        disabled
+                        checked={guest.Verified === 'Yes'}
+                        className="h-6 w-6 rounded border-gray-300 text-blue-800 focus:ring-blue-500 disabled:opacity-100"
+                      />
+                    </td>
                     <td className="px-6 py-4 text-black whitespace-nowrap">
                       {guest.Verified === 'No' && (
                         <button
