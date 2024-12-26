@@ -74,7 +74,7 @@ export default function VerifyGuest() {
 
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <h1 className="text-2xl font-bold text-center mb-8">Guest Verification</h1>
           
@@ -129,4 +129,4 @@ export default function VerifyGuest() {
       </div>
     </div>
   )
-}
+} 
